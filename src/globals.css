@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
+
+:root {
+   --fs_yellow: #ffe337;
+   --fs_orange: #f3932c;
+   --fs_red: #b42e0b;
+   --fs_purple: #7f3e66;
+   --fs_blue: #517887;
+   --fs_green: #66806c;
+   --fs_dark: #3e393d;
+   --fs_light: #e8e3cf;
+   --fs_gray: #8e8f89;
+   --primary: #fffcfb;
+   --secondary: #2a292a;
+   --accent: #1a4797;
+}
+/* global standard styling */
+@layer base {
+   /* små skærme */
+      h1 {
+         @apply font-display text-[2rem] leading-[3rem] font-normal !important;
+      }
+      h2 {
+         @apply font-sans text-[1.5rem] leading-[2.25rem] font-bold !important;
+      }
+      h3 {
+         @apply font-sans text-[1.25rem] leading-[1.875rem] font-semibold !important;
+      }
+      h4 {
+         @apply font-sans text-[1rem] leading-[1.5rem] font-semibold italic !important;
+      }
+      p {
+         @apply font-sans text-[1rem] leading-[1.25rem] font-normal !important;
+      }
+   /* store skærme */
+   @screen lg {
+      h1 {
+         @apply font-display text-[3rem] leading-[4.5rem] font-normal !important;
+      }
+      h2 {
+         @apply font-sans text-[2rem] leading-[3rem] font-bold !important;
+      }
+      h3 {
+         @apply font-sans text-[1.5rem] leading-[2.25rem] font-semibold !important;
+      }
+      h4 {
+         @apply font-sans text-[1.25rem] leading-[1.875rem] font-semibold italic !important;
+      }
+      p {
+         @apply font-sans text-[1.125rem] leading-[1.75rem] font-normal !important;
+      }
+   }
+}
+

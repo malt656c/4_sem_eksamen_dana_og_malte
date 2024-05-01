@@ -1,0 +1,7 @@
+---
+const { vertical } = Astro.props;
+let style = 'h-1 w-screen bg-secondary';
+vertical ? (style = 'h-screen w-[2px] bg-secondary') : (style = 'h-[2px] w-screen bg-secondary');
+---
+
+<div class={style}></div>

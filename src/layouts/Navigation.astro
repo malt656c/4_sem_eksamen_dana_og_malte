@@ -1,0 +1,37 @@
+---
+
+import NavigationButton from './NavigationButton.astro';
+---
+
+
+
+<nav id='NavMenu' class='fixed inset-0 bg-fs_red translate-x-full transition-all pt-20'>
+   <ul class='grid p-8 gap-6'>
+      <NavigationButton href='/produkter'>Produkter</NavigationButton>
+      <NavigationButton href='/tilpas'>Tilpas</NavigationButton>
+      <NavigationButton href='/om_os'>Om os</NavigationButton>
+      <NavigationButton href='/vejledning'>Vejledning</NavigationButton>
+      <NavigationButton href='/faq'>FAQ</NavigationButton>
+      <NavigationButton href='/kontakt'>Kontakt</NavigationButton>
+   </ul>
+</nav>
+
+<script>
+   const navMenu = document.querySelector('#NavMenu')!;
+   const navMenuLinks = navMenu.querySelectorAll('li a')!;
+   const burgerButton = document.querySelector('#BurgerButton')!;
+
+   function toggleMenu(): void {
+      navMenu.classList.toggle('!translate-x-0');
+   }
+
+   burgerButton.addEventListener('click', () => {
+      toggleMenu();
+   });
+
+   navMenuLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+         toggleMenu();
+      });
+   });
+</script>

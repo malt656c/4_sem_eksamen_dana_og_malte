@@ -1,0 +1,31 @@
+---
+import PageHeader from './PageHeader.astro';
+import PageFooter from './PageFooter.astro';
+import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+   title: string;
+   description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<html lang='da'>
+   <head>
+      <meta charset='utf-8' />
+      <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+      <meta name='viewport' content='width=device-width' />
+      <meta name='generator' content={Astro.generator} />
+      <link rel='stylesheet' href='/src/globals.css' />
+      <title>{'Farver & Striber' + ' - ' + title}</title>
+      <meta name='description' content={description} />
+      <ViewTransitions />
+   </head>
+   <body class='grid overflow-x-hidden'>
+      <PageHeader />
+      <main>
+         <slot />
+      </main>
+      <PageFooter />
+   </body>
+</html>

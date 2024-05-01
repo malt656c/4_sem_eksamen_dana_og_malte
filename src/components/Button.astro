@@ -1,0 +1,16 @@
+---
+interface Props {
+   variation: 'primary' | 'secondary' | 'outline';
+}
+const variations = {
+   primary: 'bg-fs_red text-primary text-xl p-2 rounded-xl',
+   secondary: 'bg-fs_purple text-primary text-xl p-2 rounded-xl',
+   outline: 'bg-primary text-secondary text-xl p-2 rounded-xl border-2 border-fs_red',
+};
+const { variation = 'primary' } = Astro.props;
+let buttonStyle = variations[variation];
+---
+
+<button class={buttonStyle}>button</button>
+
+
