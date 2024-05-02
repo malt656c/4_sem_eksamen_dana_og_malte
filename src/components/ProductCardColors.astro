@@ -1,0 +1,25 @@
+---
+interface Props {
+   colors: string[];
+}
+const colorIndex = {
+   gul: 'bg-fs_yellow',
+   orange: 'bg-fs_orange',
+   rød: 'bg-fs_red',
+   lilla: 'bg-fs_purple',
+   blå: 'bg-fs_blue',
+   grøn: 'bg-fs_green',
+   sort: 'bg-fs_dark',
+   hvid: 'bg-fs_light',
+   grå: 'bg-fs_gray',
+};
+const { colors } = Astro.props;
+---
+
+<div class='flex flex-wrap gap-2'>
+   {
+      colors.map((color) => {
+         return <div id={color} class={`h-6 w-6 ${colorIndex[color] ? colorIndex[color] : 'bg-slate-400'} rounded-xl`} />;
+      })
+   }
+</div>

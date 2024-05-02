@@ -26,10 +26,8 @@ export default {
          },
          fontFamily: {
             display: ['Chelsea Market', 'system-ui'],
-            sans: ["Montserrat", 'serif'],
+            sans: ['Montserrat', 'serif'],
          },
-
-		 
       },
    },
    plugins: [],

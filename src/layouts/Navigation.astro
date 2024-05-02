@@ -1,11 +1,8 @@
 ---
-
 import NavigationButton from './NavigationButton.astro';
 ---
 
-
-
-<nav id='NavMenu' class='fixed inset-0 bg-fs_red translate-x-full transition-all pt-20'>
+<nav id='NavMenu' class='fixed inset-0 bg-fs_red translate-x-full transition-all pt-20' >
    <ul class='grid p-8 gap-6'>
       <NavigationButton href='/produkter'>Produkter</NavigationButton>
       <NavigationButton href='/tilpas'>Tilpas</NavigationButton>
@@ -15,23 +12,23 @@ import NavigationButton from './NavigationButton.astro';
       <NavigationButton href='/kontakt'>Kontakt</NavigationButton>
    </ul>
 </nav>
-
+<!-- TODO fix nav menuen så den virker på tværs af viewTransitions -->
 <script>
    const navMenu = document.querySelector('#NavMenu')!;
-   const navMenuLinks = navMenu.querySelectorAll('li a')!;
+   const navMenuLinks = navMenu.querySelectorAll('navButton')!;
    const burgerButton = document.querySelector('#BurgerButton')!;
 
-   function toggleMenu(): void {
+   function toggleMenu() {
       navMenu.classList.toggle('!translate-x-0');
    }
-
    burgerButton.addEventListener('click', () => {
+      console.log('click');
       toggleMenu();
    });
-
    navMenuLinks.forEach((link) => {
       link.addEventListener('click', () => {
          toggleMenu();
       });
    });
+''
 </script>

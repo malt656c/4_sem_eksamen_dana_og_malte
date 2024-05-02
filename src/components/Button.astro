@@ -11,6 +11,6 @@ const { variation = 'primary' } = Astro.props;
 let buttonStyle = variations[variation];
 ---
 
-<button class={buttonStyle}>button</button>
+<button class={buttonStyle}><slot/></button>
 
 

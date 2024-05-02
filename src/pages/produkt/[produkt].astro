@@ -1,8 +1,58 @@
 ---
-import PageWrapper from "../../layouts/PageWrapper.astro";
+import PageWrapper from '../../layouts/PageWrapper.astro';
+import { Shopify } from '../../utils/FetchShopify';
 
+export async function getStaticPaths() {
+   const APIQuery = `{
+  shop {
+    name
+  }
+  products(first: 10) {
+    nodes {
+      title
+      priceRange {
+        maxVariantPrice {
+          amount
+        }
+        minVariantPrice {
+          amount
+        }
+      }
+      variants(first: 50) {
+        nodes {
+          price {
+            amount
+          }
+          title
+        }
+      }
+      description
+      featuredImage {
+        src
+        height
+        width
+        altText
+      }
+    }
+  }
+}`;
 
+   const shopify = new Shopify();
+   const products = await shopify.fetchProducts(APIQuery);
+   const pages = products.map((product) => {
+      return {
+         params: { produkt: product.name },
+         props: { product: product },
+      };
+   });
+   return pages;
+}
+const { product } = Astro.props;
 ---
-<PageWrapper>
-    
+
+<PageWrapper title='title' description='description'>
+   <section class="grid place-items-center">
+      <h1>{product.name}</h1>
+      <img src={product.image.src} alt='' class='rounded-t-[14px] max-w-[400px]' transition:name={product.name} />
+   </section>
 </PageWrapper>
