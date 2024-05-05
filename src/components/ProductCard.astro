@@ -1,7 +1,7 @@
 ---
 import ProductCardColors from './ProductCardColors.astro';
 import Button from './Button.astro';
-import type { Product } from '../utils/FetchShopify';
+import type { Product } from '../utils/Types';
 interface Props {
    product: Product;
 }
@@ -16,11 +16,11 @@ const colors = [
 ---
 
 <article class='border-2 border-secondary max-w-[400px] rounded-2xl'>
-   <img src={product.image.src} alt='' class='rounded-t-[14px]' transition:name={product.name}/>
+   <img src={product.image.src} alt='' class='rounded-t-[14px]' />
    <div class='grid gap-2 p-4 border-t-2 border-secondary'>
       <h3>{product.name}</h3>
       <ProductCardColors colors={colors} />
       <span class='font-sans text-[18px] font-semibold justify-self-end'>{product.price},-</span>
-      <a href={`/produkt/${product.name}`}><Button variation='primary'>Se Mere</Button></a>
+      <a href={`/produkt/${product.name}`}><Button variation='primary' width='full'>Se Mere</Button></a>
    </div>
 </article>

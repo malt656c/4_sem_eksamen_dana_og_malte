@@ -1,9 +1,10 @@
 ---
 import NavigationButton from './NavigationButton.astro';
+const burgerButtonLineStyle = 'w-10 h-[5px] bg-secondary rounded-full transition-all';
 ---
 
-<nav id='NavMenu' class='fixed inset-0 bg-fs_red translate-x-full transition-all pt-20' >
-   <ul class='grid p-8 gap-6'>
+<nav id='NavMenu' class='fixed z-10 inset-0  translate-x-full bg-fs_red transition-all pt-20'>
+   <ul class='grid p-8 gap-2 h-full'>
       <NavigationButton href='/produkter'>Produkter</NavigationButton>
       <NavigationButton href='/tilpas'>Tilpas</NavigationButton>
       <NavigationButton href='/om_os'>Om os</NavigationButton>
@@ -12,15 +13,15 @@ import NavigationButton from './NavigationButton.astro';
       <NavigationButton href='/kontakt'>Kontakt</NavigationButton>
    </ul>
 </nav>
-<!-- TODO fix nav menuen så den virker på tværs af viewTransitions -->
+<!-- TODO tilføj farveskift og animation til burgerbutton -->
 <script>
    const navMenu = document.querySelector('#NavMenu')!;
-   const navMenuLinks = navMenu.querySelectorAll('navButton')!;
+   const navMenuLinks = navMenu.querySelectorAll('.navButton')!;
    const burgerButton = document.querySelector('#BurgerButton')!;
-
    function toggleMenu() {
       navMenu.classList.toggle('!translate-x-0');
    }
+
    burgerButton.addEventListener('click', () => {
       console.log('click');
       toggleMenu();
@@ -30,5 +31,4 @@ import NavigationButton from './NavigationButton.astro';
          toggleMenu();
       });
    });
-''
 </script>

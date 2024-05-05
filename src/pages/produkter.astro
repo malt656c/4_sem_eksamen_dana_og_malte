@@ -2,56 +2,25 @@
 import ProductCard from '../components/ProductCard.astro';
 import PageWrapper from '../layouts/PageWrapper.astro';
 import { Shopify } from '../utils/FetchShopify';
-const APIQuery = `{
-  shop {
-    name
-  }
-  products(first: 10) {
-    nodes {
-      title
-      priceRange {
-        maxVariantPrice {
-          amount
-        }
-        minVariantPrice {
-          amount
-        }
-      }
-      variants(first: 50) {
-        nodes {
-          price {
-            amount
-          }
-          title
-        }
-      }
-      description
-      featuredImage {
-        src
-        height
-        width
-        altText
-      }
-    }
-  }
-}`;
+import { ShopifyQuery } from '../utils/ShopifyQueries';
 
-const shopify = new Shopify
-const products= await shopify.fetchProducts(APIQuery)
+const shopify = new Shopify<ShopifyQuery.productList.responseType>();
+const fetchedProducts = await shopify.fetchProducts(ShopifyQuery.productList.query);
+const products = ShopifyQuery.productList.cleanupFunction(fetchedProducts);
 console.log(products);
 ---
-
-<!-- TODO  map dataet på Productcard komponentet istedet for denne side, tilføj eventuelt en global variabel for api queries -->
 <PageWrapper
    title='Produkter'
    description='Vores møbler er produceret med tanke for designet, optimal siddekomfort, glæde ved flotte farver, langtidsholdbarhed og med minimum af miljøbelastning, både i produktion og når de om mange år skal kasseres. Det giver mening!'
 >
-   <h1>Produkter</h1>
-   {
-      products?.map((product) => {
-         return <ProductCard product={product} />;
-      })
-   }
+   <section class='grid p-6 border-2 border-b-secondary'><h1>Produkter</h1></section>
+   <section class='grid gap-6 py-6 place-items-center'>
+      {
+         products?.map((product) => {
+            return <ProductCard product={product} />;
+         })
+      }
+   </section>
 </PageWrapper>
 
 <script></script>

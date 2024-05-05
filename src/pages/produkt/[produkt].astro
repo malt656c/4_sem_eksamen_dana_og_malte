@@ -1,44 +1,13 @@
 ---
 import PageWrapper from '../../layouts/PageWrapper.astro';
 import { Shopify } from '../../utils/FetchShopify';
-
+import { ShopifyQuery } from '../../utils/ShopifyQueries';
 export async function getStaticPaths() {
-   const APIQuery = `{
-  shop {
-    name
-  }
-  products(first: 10) {
-    nodes {
-      title
-      priceRange {
-        maxVariantPrice {
-          amount
-        }
-        minVariantPrice {
-          amount
-        }
-      }
-      variants(first: 50) {
-        nodes {
-          price {
-            amount
-          }
-          title
-        }
-      }
-      description
-      featuredImage {
-        src
-        height
-        width
-        altText
-      }
-    }
-  }
-}`;
+  
+   const shopify = new Shopify<ShopifyQuery.productList.responseType>();
+   const fetchedProducts = await shopify.fetchProducts(ShopifyQuery.productList.query);
+   const products = ShopifyQuery.productList.cleanupFunction(fetchedProducts);
 
-   const shopify = new Shopify();
-   const products = await shopify.fetchProducts(APIQuery);
    const pages = products.map((product) => {
       return {
          params: { produkt: product.name },
@@ -51,8 +20,8 @@ const { product } = Astro.props;
 ---
 
 <PageWrapper title='title' description='description'>
-   <section class="grid place-items-center">
+   <section class='grid place-items-center'>
       <h1>{product.name}</h1>
-      <img src={product.image.src} alt='' class='rounded-t-[14px] max-w-[400px]' transition:name={product.name} />
+      <img src={product.image.src} alt='' class='rounded-t-[14px] max-w-[400px]' />
    </section>
 </PageWrapper>

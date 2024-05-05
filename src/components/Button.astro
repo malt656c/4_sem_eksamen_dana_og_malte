@@ -1,14 +1,20 @@
 ---
 interface Props {
-   variation: 'primary' | 'secondary' | 'outline';
+   variation?: 'primary' | 'secondary' | 'outline';
+   width?: 'full'|'fit'
+}
+const widths={
+full:"w-full",
+fit:"w-fit"
 }
 const variations = {
    primary: 'bg-fs_red text-primary text-xl p-2 rounded-xl',
    secondary: 'bg-fs_purple text-primary text-xl p-2 rounded-xl',
    outline: 'bg-primary text-secondary text-xl p-2 rounded-xl border-2 border-fs_red',
 };
-const { variation = 'primary' } = Astro.props;
-let buttonStyle = variations[variation];
+
+const { variation = 'primary', width="fit" } = Astro.props;
+let buttonStyle = variations[variation]+" "+widths[width];
 ---
 
 <button class={buttonStyle}><slot/></button>

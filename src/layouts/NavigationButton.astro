@@ -1,7 +1,11 @@
 ---
-const { href } = Astro.props;
+interface Props{
+   href:string,
+
+}
+const { href} = Astro.props;
 ---
 
-<li class="navButton">
+<li class={`navButton h-full grid place-items-center`}>
    <a href={href} class='text-primary text-3xl p-2'><slot /></a>
 </li>

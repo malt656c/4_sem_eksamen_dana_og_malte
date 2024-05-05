@@ -1,34 +1,4 @@
-type APIResponse = {
-   title: string;
-   variants: { nodes: [{ title: string; price: { amount: string } }] };
-   description: string;
-   featuredImage: {
-      src: string;
-      width: number;
-      height: number;
-      altText: null;
-   };
-   priceRange: {
-      maxVariantPrice: {
-         amount: string;
-      };
-      minVariantPrice: {
-         amount: string;
-      };
-   };
-};
-export type Product = {
-   name: string;
-   price: string;
-   image: {
-      src: string;
-      width: number;
-      height: number;
-      altText: string | null;
-   };
-   variants: { color: string; size: string; price: string }[];
-};
-export class Shopify {
+export class Shopify<responseType> {
    #shopifyStoreURL: string;
    #shopifyAPIKey: string;
    #APIPath: string;
@@ -47,30 +17,11 @@ export class Shopify {
          'X-Shopify-Storefront-Access-Token': this.#shopifyAPIKey,
       };
    }
-   #productDataCleanup(rawData: APIResponse) {
-      const name = rawData.title;
-      const price = parseInt(rawData.priceRange.minVariantPrice.amount) + ' - ' + parseInt(rawData.priceRange.maxVariantPrice.amount);
-      const image = rawData.featuredImage;
-      const variants = rawData.variants.nodes.map((variant) => {
-         return { color: variant.title.replace(' ', '').split('/')[0], size: variant.title.replace(' ', '').split('/')[1], price: variant.price.amount };
-      });
-      const product: Product = {
-         name: name,
-         price: price,
-         image: image,
-         variants: variants,
-      };
-      return product;
-   }
    async fetchProducts(query: string) {
       const fetchOptions = { method: 'POST', headers: this.#requestHeader, body: JSON.stringify({ query: query }) };
-
       const response = await fetch(this.#shopifyAPIURL, fetchOptions);
       const data = await response.json();
-      const fetchedProducts: APIResponse[] = data.data.products.nodes;
-      const products = fetchedProducts.map((fetchedProduct) => {
-         return this.#productDataCleanup(fetchedProduct);
-      });
-      return products;
+      const fetchedProducts: responseType[] = data.data.products.nodes;
+      return fetchedProducts;
    }
 }
