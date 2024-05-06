@@ -3,23 +3,29 @@ import ProductCard from '../components/ProductCard.astro';
 import PageWrapper from '../layouts/PageWrapper.astro';
 import { Shopify } from '../utils/FetchShopify';
 import { ShopifyQuery } from '../utils/ShopifyQueries';
-
+import Button from '../components/Button.astro';
 const shopify = new Shopify<ShopifyQuery.productList.responseType>();
 const fetchedProducts = await shopify.fetchProducts(ShopifyQuery.productList.query);
 const products = ShopifyQuery.productList.cleanupFunction(fetchedProducts);
 console.log(products);
 ---
+
 <PageWrapper
    title='Produkter'
-   description='Vores møbler er produceret med tanke for designet, optimal siddekomfort, glæde ved flotte farver, langtidsholdbarhed og med minimum af miljøbelastning, både i produktion og når de om mange år skal kasseres. Det giver mening!'
->
-   <section class='grid p-6 border-2 border-b-secondary'><h1>Produkter</h1></section>
-   <section class='grid gap-6 py-6 place-items-center'>
+   description='Vores møbler er produceret med tanke for designet, optimal siddekomfort, glæde ved flotte farver, langtidsholdbarhed og med minimum af miljøbelastning, både i produktion og når de om mange år skal kasseres. Det giver mening!'>
+   <section class='grid p-6 border-2 border-b-accent'>
+      <h1>Produkter</h1>
+      <Button class='hidden md:flex'>
+         <a href='/tilpas'>Tilpas den egen stol</a>
+      </Button>
+   </section>
+   <section class='grid grid-cols-2 gap-2 p-2 place-items-center'>
       {
          products?.map((product) => {
             return <ProductCard product={product} />;
          })
       }
+      <Button class='md:hidden col-span-2'><a href='/tilpas'>Tilpas den egen stol</a></Button>
    </section>
 </PageWrapper>
 

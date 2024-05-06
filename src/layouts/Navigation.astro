@@ -1,9 +1,8 @@
 ---
 import NavigationButton from './NavigationButton.astro';
-const burgerButtonLineStyle = 'w-10 h-[5px] bg-secondary rounded-full transition-all';
 ---
 
-<nav id='NavMenu' class='fixed z-10 inset-0  translate-x-full bg-fs_red transition-all pt-20'>
+<nav id='NavMenu' class='fixed inset-0 -z-10 translate-x-full bg-accent transition-all pt-20'>
    <ul class='grid p-8 gap-2 h-full'>
       <NavigationButton href='/produkter'>Produkter</NavigationButton>
       <NavigationButton href='/tilpas'>Tilpas</NavigationButton>

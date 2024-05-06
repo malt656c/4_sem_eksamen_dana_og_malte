@@ -55,7 +55,7 @@ export namespace ShopifyQuery {
       export function cleanupFunction(rawData: responseType[]) {
          const products = rawData.map((data) => {
             const name = data.title;
-            const price = parseInt(data.priceRange.minVariantPrice.amount) + ' - ' + parseInt(data.priceRange.maxVariantPrice.amount);
+            const price = "Fra "+parseInt(data.priceRange.minVariantPrice.amount)
             const image = data.featuredImage;
             const variants = data.variants.nodes.map((variant) => {
                return { color: variant.title.replace(' ', '').split('/')[0], size: variant.title.replace(' ', '').split('/')[1], price: variant.price.amount };

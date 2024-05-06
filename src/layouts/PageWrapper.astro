@@ -21,9 +21,9 @@ const { title, description } = Astro.props;
       <meta name='description' content={description} />
       <ViewTransitions />
    </head>
-   <body class='grid overflow-x-hidden bg-primary'>
+   <body class='grid min-h-screen grid-rows-[auto_1fr_auto] overflow-x-hidden bg-primary'>
       <PageHeader />
-      <main>
+      <main class="h-full">
          <slot />
       </main>
       <PageFooter />

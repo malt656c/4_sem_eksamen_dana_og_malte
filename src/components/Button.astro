@@ -1,22 +1,36 @@
 ---
-interface Props {
-   variation?: 'primary' | 'secondary' | 'outline';
-   width?: 'full'|'fit'
+import type { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'button'> {
+   variant?: 'primary' | 'secondary' | 'outline';
+   width?: 'full' | 'fit'|"square";
+   arrow?: boolean;
 }
-const widths={
-full:"w-full",
-fit:"w-fit"
-}
+const widths = {
+   full: 'w-full',
+   fit: 'w-fit',
+   square: 'aspect-square',
+};
 const variations = {
-   primary: 'bg-fs_red text-primary text-xl p-2 rounded-xl',
-   secondary: 'bg-fs_purple text-primary text-xl p-2 rounded-xl',
-   outline: 'bg-primary text-secondary text-xl p-2 rounded-xl border-2 border-fs_red',
+   primary: ' bg-fs_red text-primary [&>svg]:fill-primary',
+   secondary: ' bg-fs_purple text-primary [&>svg]:fill-primary',
+   outline: ' bg-primary text-secondary border-2 border-fs_red  [&>svg]:fill-secondary',
 };
 
-const { variation = 'primary', width="fit" } = Astro.props;
-let buttonStyle = variations[variation]+" "+widths[width];
+const { variant = 'primary', width = 'fit', arrow = false, ...attrs } = Astro.props;
+let buttonStyle = variations[variant] + ' ' + widths[width];
 ---
 
-<button class={buttonStyle}><slot/></button>
-
-
+<button class={'text-nowrap flex gap-2 items-center justify-between text-xl p-2 rounded-xl max-w-[400px]' + ' ' + buttonStyle + ' ' + attrs.class}>
+   <slot />{
+      arrow && (
+         <svg
+            id='right_arrow'
+            data-name='right_arrow'
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 511.26 307.21'
+            class='min-h-4 h-full max-h-8 min-w-6 w-full max-w-12'>
+            <path d='M508.98,156.44l-176.59,149.24c-4.18,3.53-10.59.55-10.59-4.92v-95.51H6.44c-3.55,0-6.44-2.88-6.44-6.44v-90.1c0-3.55,2.88-6.44,6.44-6.44h315.36V6.44c0-5.43,6.32-8.42,10.52-4.97l176.59,145.08c3.12,2.55,3.14,7.3.08,9.89Z' />
+         </svg>
+      )
+   }
+</button>

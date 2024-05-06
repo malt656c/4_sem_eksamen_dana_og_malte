@@ -1,3 +1,14 @@
 ---
-
+interface Props {
+   src: string;
+   alt?: string;
+   size: number;
+   color: string;
+}
+const { src, size, color, alt = 'missing alt text' } = Astro.props;
+const iconStyle = `w-[${size}px] h-[${size}px]`;
 ---
+
+<div class={iconStyle}>
+   <img src={src} alt={alt} class='object-contain h-full w-full' />
+</div>

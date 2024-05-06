@@ -4,8 +4,10 @@ import Navigation from './Navigation.astro';
 import Logo from './Logo.astro';
 ---
 
-<header class=' grid max-w-full place-items-center border-b-2 border-secondary' transition:persist>
-   <BurgerButton />
-   <Logo />
+<header class='sticky top-0 bg-accent z-30' transition:persist>
+   <section class='z-30 border-b-primary border-b-2 w-full h-fit grid grid-cols-3 px-3 py-4 items-center'>
+      <BurgerButton />
+      <Logo class='max-w-24 py-0' />
+   </section>
    <Navigation />
 </header>
