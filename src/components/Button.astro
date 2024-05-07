@@ -1,18 +1,19 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 interface Props extends HTMLAttributes<'button'> {
-   variant?: 'primary' | 'secondary' | 'outline';
-   width?: 'full' | 'fit'|"square";
+   variant?: 'primary' | 'secondary' | 'outline' | 'accent';
+   width?: 'full' | 'fit' | 'square';
    arrow?: boolean;
 }
 const widths = {
-   full: 'w-full',
-   fit: 'w-fit',
+   full: 'w-full py-2 px-4 !justify-center',
+   fit: 'w-fit py-2 px-4',
    square: 'aspect-square',
 };
 const variations = {
    primary: ' bg-fs_red text-primary [&>svg]:fill-primary',
    secondary: ' bg-fs_purple text-primary [&>svg]:fill-primary',
+   accent: ' bg-accent text-primary [&>svg]:fill-primary',
    outline: ' bg-primary text-secondary border-2 border-fs_red  [&>svg]:fill-secondary',
 };
 
@@ -20,7 +21,7 @@ const { variant = 'primary', width = 'fit', arrow = false, ...attrs } = Astro.pr
 let buttonStyle = variations[variant] + ' ' + widths[width];
 ---
 
-<button class={'text-nowrap flex gap-2 items-center justify-between text-xl p-2 rounded-xl max-w-[400px]' + ' ' + buttonStyle + ' ' + attrs.class}>
+<button class={'text-nowrap flex gap-2 items-center justify-between text-xl  rounded-full max-w-[400px]' + ' ' + buttonStyle + ' ' + attrs.class}>
    <slot />{
       arrow && (
          <svg

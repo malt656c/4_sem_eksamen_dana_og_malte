@@ -1,0 +1,45 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'label'> {
+   color?: string;
+}
+const { color, ...attrs } = Astro.props;
+const colorStyleIndex = {
+   gul: 'border-fs_yellow bg-fs_yellow text-secondary',
+   orange: 'border-fs_orange bg-fs_orange text-secondary',
+   rød: 'border-fs_red bg-fs_red text-primary',
+   lilla: 'border-fs_purple bg-fs_purple text-primary',
+   blå: 'border-fs_blue bg-fs_blue text-primary',
+   grøn: 'border-fs_green bg-fs_green text-primary',
+   sort: 'border-fs_dark bg-fs_dark text-primary',
+   hvid: 'border-fs_light bg-fs_light text-secondary',
+   grå: 'border-fs_gray bg-fs_gray text-primary',
+};
+const colorIsInIndex = color ? Object.keys(colorStyleIndex).includes(color) : false;
+---
+
+<label
+   for={color}
+   class={(colorIsInIndex ? colorStyleIndex[color] : 'border-secondary border-dashed bg-primary text-secondary') +
+      ' ' +
+      `relative flex-grow max-w-32 transition-all cursor-pointer grid place-items-center px-2 py-1 rounded-full border-2 outline outline-transparent outline-offset-[-4px] outline-2
+      has-[input:checked]:border-secondary 
+      has-[input:checked]:scale-125 
+      has-[input:checked]:font-semibold 
+      has-[input:checked]:z-50 
+      has-[input:checked]:border-solid
+      has-[input:checked]:outline-2
+      has-[input:checked]:outline-primary
+      has-[input:checked]:outline
+      has-[input:checked]:outline-offset-[-4px]
+      `}>
+   {color}
+   <input
+      type='radio'
+      name='color'
+      value={color}
+      id={color}
+      class='h-0'
+      required
+   />
+</label>

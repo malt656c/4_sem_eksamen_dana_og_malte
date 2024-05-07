@@ -1,0 +1,160 @@
+---
+import Button from './Button.astro';
+import ColorVariantRadio from './ColorVariantRadio.astro';
+interface Props {
+   product: {
+      name: string;
+      price: string;
+      image: {
+         src: string;
+         width: number;
+         height: number;
+         altText: null;
+      };
+      variants: {
+         color?: 'gul' | 'orange' | 'rød' | 'lilla' | 'blå' | 'grøn' | 'sort' | 'hvid' | 'grå' | string;
+         size?: 'standard' | 'bred' | 'barn';
+         price: string;
+      }[];
+   };
+}
+const { product } = Astro.props;
+
+const colors = [
+   ...new Set(
+      product.variants.map((variant) => {
+         return variant.color;
+      })
+   ),
+];
+---
+
+<form
+   id='variant_picker'
+   action=''
+   class='grid gap-4 place-items-center p-4 max-w-[500px] '>
+   <fieldset class='flex flex-wrap gap-2 py-4 border-b-2 border-b-accent'>
+      <legend>Farve</legend>
+      {
+         colors.map((clr) => {
+            if (clr) {
+               return <ColorVariantRadio color={clr} />;
+            }
+         })
+      }
+   </fieldset>
+   <fieldset class='grid grid-cols-3 gap-2 w-full py-4 border-b-2 border-b-accent'>
+      <legend>størrelse</legend>
+      <label
+         for='standard'
+         class='transition-all cursor-pointer grid place-items-center border-2 border-accent px-2 py-1 rounded-full text-accent bg-primary has-[input:checked]:text-primary has-[input:checked]:bg-accent'>
+         standard <input
+            type='radio'
+            name='size'
+            id='standard'
+            class='hidden'
+            value='standard'
+            required
+         />
+      </label>
+      <label
+         for='barn'
+         class='transition-all cursor-pointer grid place-items-center border-2 border-accent px-2 py-1 rounded-full text-accent bg-primary has-[input:checked]:text-primary has-[input:checked]:bg-accent'>
+         barn<input
+            type='radio'
+            name='size'
+            id='barn'
+            class='hidden'
+            value='barn'
+            required
+         />
+      </label>
+      <label
+         for='bred'
+         class='transition-all cursor-pointer grid place-items-center border-2 border-accent px-2 py-1 rounded-full text-accent bg-primary has-[input:checked]:text-primary has-[input:checked]:bg-accent'>
+         bred <input
+            type='radio'
+            name='size'
+            id='bred'
+            class='hidden'
+            value='bred'
+            required
+         />
+      </label>
+   </fieldset>
+   <div class='flex gap-0'>
+      <button
+         id='decrementButton'
+         class='grid place-items-center border-y-2 border-l-2 border-accent h-12 aspect-square rounded-l-full'>
+         <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            class='lucide lucide-minus'>
+            <path d='M5 12h14'></path>
+         </svg>
+      </button>
+      <input
+         type='number'
+         name='amount'
+         id='amount'
+         class='border-2 border-accent p-2 h-12 w-full'
+         value='1'
+         required
+      />
+      <button
+         id='incrementButton'
+         class='grid place-items-center border-y-2 border-r-2 border-accent h-12 aspect-square rounded-r-full'>
+         <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            class='lucide lucide-plus'>
+            <path d='M5 12h14'></path><path d='M12 5v14'></path>
+         </svg>
+      </button>
+   </div>
+
+   <Button
+      variant='accent'
+      width='full'
+      >tilføj til kurv</Button
+   >
+</form>
+<script>
+   document.addEventListener('astro:page-load', () => {
+      const counter = document.getElementById('amount') as HTMLInputElement;
+      const decrementButton = document.getElementById('decrementButton')!;
+      const incrementButton = document.getElementById('incrementButton')!;
+      console.log(counter.value);
+      function decrementCount() {
+         counter.stepDown();
+      }
+      function incrementCount() {
+         counter.stepUp();
+      }
+
+      decrementButton.addEventListener('click', (e) => {
+         e.preventDefault();
+         if (parseInt(counter.value) > 0) {
+            decrementCount();
+         }
+      });
+      incrementButton.addEventListener('click', (e) => {
+         e.preventDefault();
+         incrementCount();
+      });
+   });
+</script>

@@ -51,14 +51,18 @@ export namespace ShopifyQuery {
                amount: string;
             };
          };
-      };
+      }
       export function cleanupFunction(rawData: responseType[]) {
          const products = rawData.map((data) => {
             const name = data.title;
-            const price = "Fra "+parseInt(data.priceRange.minVariantPrice.amount)
+            const price = 'Fra ' + parseInt(data.priceRange.minVariantPrice.amount);
             const image = data.featuredImage;
             const variants = data.variants.nodes.map((variant) => {
-               return { color: variant.title.replace(' ', '').split('/')[0], size: variant.title.replace(' ', '').split('/')[1], price: variant.price.amount };
+               return {
+                  color: variant.title.replace(' ', '').split('/')[0] as 'gul' | 'orange' | 'rød' | 'lilla' | 'blå' | 'grøn' | 'sort' | 'hvid' | 'grå' | string | undefined,
+                  size: variant.title.replace(' ', '').split('/')[1] as 'standard' | 'bred' | 'barn' | undefined,
+                  price: variant.price.amount,
+               };
             });
             const product = {
                name: name,

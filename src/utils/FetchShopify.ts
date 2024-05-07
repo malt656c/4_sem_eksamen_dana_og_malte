@@ -1,4 +1,6 @@
 export class Shopify<responseType> {
+   //?  -------------------------------- property definitioner ------------------------------
+
    #shopifyStoreURL: string;
    #shopifyAPIKey: string;
    #APIPath: string;
@@ -7,6 +9,9 @@ export class Shopify<responseType> {
       'X-Shopify-Storefront-Access-Token': string;
    };
    #shopifyAPIURL: string;
+
+   //?-------------------------------- constructor ------------------------------
+
    constructor() {
       this.#shopifyStoreURL = 'https://farver-striber-test.myshopify.com';
       this.#shopifyAPIKey = 'e64c2bc06e11048da142746a65605b47';
@@ -17,6 +22,9 @@ export class Shopify<responseType> {
          'X-Shopify-Storefront-Access-Token': this.#shopifyAPIKey,
       };
    }
+
+   //?-------------------------------- functioner/methods ------------------------------
+
    async fetchProducts(query: string) {
       const fetchOptions = { method: 'POST', headers: this.#requestHeader, body: JSON.stringify({ query: query }) };
       const response = await fetch(this.#shopifyAPIURL, fetchOptions);

@@ -1,9 +1,19 @@
 ---
+/*-------------------------------- import af funktioner og komponenter ------------------------------*/
 import PageWrapper from '../../layouts/PageWrapper.astro';
 import { Shopify } from '../../utils/FetchShopify';
 import { ShopifyQuery } from '../../utils/ShopifyQueries';
+import VariantPicker from '../../components/VariantPicker.astro';
+/**----------------------------------------------
+ **              getStaticPaths()
+ *?  laver undersider ud fra input data
+ *@shopify: utility class til at fetche data fra shopify API
+ *@fetchedProducts: rå data fetched fra shopify API
+ *@products: behandlet data, klar til at mappes på HTML'en
+ *@params: navnet på den side funktionen bygger, erstatter [produkt] i dette tilfælde
+ *@props: dataen som mappes ud på siden
+ *---------------------------------------------**/
 export async function getStaticPaths() {
-  
    const shopify = new Shopify<ShopifyQuery.productList.responseType>();
    const fetchedProducts = await shopify.fetchProducts(ShopifyQuery.productList.query);
    const products = ShopifyQuery.productList.cleanupFunction(fetchedProducts);
@@ -19,9 +29,25 @@ export async function getStaticPaths() {
 const { product } = Astro.props;
 ---
 
-<PageWrapper title='title' description='description'>
-   <section class='grid place-items-center'>
-      <h1>{product.name}</h1>
-      <img src={product.image.src} alt='' class='rounded-t-[14px] max-w-[400px]' />
-   </section>
+<PageWrapper
+   title={product.name}
+   description='description'>
+   <section class='grid place-items-center p-6 border-b-accent border-b-2'><h1>{product.name}</h1></section>
+   <article class='grid place-items-center p-2'>
+      <div>
+         <!-- ? BREADCRUMBS -->
+      </div>
+      <figure>
+         <img
+            src={product.image.src}
+            alt=''
+            class=''
+         />
+         <!-- ? IMAGE THUMBNAILS -->
+      </figure>
+      <section>
+         <!-- ? VARIANT DASHBOARD -->
+      </section>
+   </article>
+   <VariantPicker product={product} />
 </PageWrapper>
