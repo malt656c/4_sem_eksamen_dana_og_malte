@@ -59,8 +59,8 @@ export namespace ShopifyQuery {
             const image = data.featuredImage;
             const variants = data.variants.nodes.map((variant) => {
                return {
-                  color: variant.title.replace(' ', '').split('/')[0] as 'gul' | 'orange' | 'rød' | 'lilla' | 'blå' | 'grøn' | 'sort' | 'hvid' | 'grå' | string | undefined,
-                  size: variant.title.replace(' ', '').split('/')[1] as 'standard' | 'bred' | 'barn' | undefined,
+                  color: variant.title.replace(' ', '').split('/')[0],
+                  size: variant.title.replace(' ', '').split('/')[1],
                   price: variant.price.amount,
                };
             });
@@ -68,7 +68,7 @@ export namespace ShopifyQuery {
                name: name,
                price: price,
                image: image,
-               variants: variants,
+               variants: variants
             };
             return product;
          });

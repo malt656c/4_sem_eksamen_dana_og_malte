@@ -27,6 +27,7 @@ export async function getStaticPaths() {
    return pages;
 }
 const { product } = Astro.props;
+console.log(product);
 ---
 
 <PageWrapper
@@ -46,8 +47,13 @@ const { product } = Astro.props;
          <!-- ? IMAGE THUMBNAILS -->
       </figure>
       <section>
+         <!-- ? PRODUCT INFORMATION -->
+         <span id='currentPrice'><!-- TODO måske et react component --></span>
+         <p></p>
+      </section>
+      <section class='w-full'>
          <!-- ? VARIANT DASHBOARD -->
+         <VariantPicker product={product} />
       </section>
    </article>
-   <VariantPicker product={product} />
 </PageWrapper>

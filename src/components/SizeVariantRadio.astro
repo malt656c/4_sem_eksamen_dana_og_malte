@@ -1,0 +1,25 @@
+---
+interface Props {
+   size?: string;
+}
+const { size } = Astro.props;
+---
+
+<label
+   for={size}
+   class={`
+      transition-all cursor-pointer grid place-items-center border-2 border-accent px-2 py-1 rounded-full text-accent bg-primary 
+      has-[input:checked]:text-primary 
+      has-[input:checked]:bg-accent
+      `}>
+   {size}
+   <input
+      type='radio'
+      name='size'
+      value={size}
+      id={size}
+      class='hidden'
+      required
+      checked={size=="standard"}
+   />
+</label>

@@ -1,9 +1,8 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-interface Props extends HTMLAttributes<'label'> {
+interface Props {
    color?: string;
 }
-const { color, ...attrs } = Astro.props;
+const { color} = Astro.props;
 const colorStyleIndex = {
    gul: 'border-fs_yellow bg-fs_yellow text-secondary',
    orange: 'border-fs_orange bg-fs_orange text-secondary',
@@ -26,7 +25,7 @@ const colorIsInIndex = color ? Object.keys(colorStyleIndex).includes(color) : fa
       has-[input:checked]:border-secondary 
       has-[input:checked]:scale-125 
       has-[input:checked]:font-semibold 
-      has-[input:checked]:z-50 
+      has-[input:checked]:z-10 
       has-[input:checked]:border-solid
       has-[input:checked]:outline-2
       has-[input:checked]:outline-primary
@@ -39,7 +38,8 @@ const colorIsInIndex = color ? Object.keys(colorStyleIndex).includes(color) : fa
       name='color'
       value={color}
       id={color}
-      class='h-0'
+      class='hidden'
       required
+      checked={color=="gul"}
    />
 </label>
